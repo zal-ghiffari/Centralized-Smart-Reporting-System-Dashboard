@@ -1,0 +1,1042 @@
+{
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "e6491d24-db18-40ac-aa40-727cf94c318d",
+        "options": {
+          "rawBody": true
+        }
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        -700,
+        -160
+      ],
+      "id": "73ae61d6-162a-4d10-b637-17d079a052ef",
+      "name": "FORM WEBHOOK",
+      "webhookId": "e6491d24-db18-40ac-aa40-727cf94c318d"
+    },
+    {
+      "parameters": {
+        "updates": [
+          "message"
+        ],
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegramTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        -700,
+        -320
+      ],
+      "id": "f7c3f4a7-07b2-4b8c-ba7d-5623fdf98d4d",
+      "name": "ADUAN TELEGRAM",
+      "webhookId": "d798fa10-2267-4695-a4ed-89242efc15a0",
+      "credentials": {
+        "telegramApi": {
+          "id": "liq0Yj1GjhgzMM4b",
+          "name": "Centralized Smart Reporting System BOT"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "path": "ae62d7c5-5843-4303-845d-30164643fa93",
+        "options": {
+          "binaryPropertyName": "data"
+        }
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        -700,
+        200
+      ],
+      "id": "e55f51ad-49f8-433e-8c03-5a523ce8e8ef",
+      "name": "FILE",
+      "webhookId": "ae62d7c5-5843-4303-845d-30164643fa93"
+    },
+    {
+      "parameters": {
+        "content": "## Reporting Source \n**Double click** to edit me. [Guide](https://docs.n8n.io/workflows/sticky-notes/)",
+        "height": 840
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -780,
+        -480
+      ],
+      "typeVersion": 1,
+      "id": "77882f35-5d64-4fe8-88fe-9e715835cb9c",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "content": "## Service API (Extraction and Classification)\n**Double click** to edit me. [Guide](https://docs.n8n.io/workflows/sticky-notes/)",
+        "height": 840,
+        "color": 5
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -100,
+        -480
+      ],
+      "typeVersion": 1,
+      "id": "d37ea66f-0b50-437a-9f75-d2033fe69005",
+      "name": "Sticky Note1"
+    },
+    {
+      "parameters": {
+        "content": "## Save Raw Data\n**Double click** to edit me. [Guide](https://docs.n8n.io/workflows/sticky-notes/)",
+        "height": 840,
+        "width": 180,
+        "color": 4
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -300,
+        -480
+      ],
+      "typeVersion": 1,
+      "id": "a7011c40-c48e-4bee-bbd8-d85b3360cf91",
+      "name": "Sticky Note2"
+    },
+    {
+      "parameters": {
+        "content": "## Normalize Data\n**Double click** to edit me. [Guide](https://docs.n8n.io/workflows/sticky-notes/)",
+        "height": 840,
+        "width": 200
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -520,
+        -480
+      ],
+      "typeVersion": 1,
+      "id": "6c230e29-e6df-4671-9077-d90464c8830f",
+      "name": "Sticky Note4"
+    },
+    {
+      "parameters": {
+        "schema": {
+          "__rl": true,
+          "value": "public",
+          "mode": "list",
+          "cachedResultName": "public"
+        },
+        "table": {
+          "__rl": true,
+          "value": "raw_data",
+          "mode": "list",
+          "cachedResultName": "raw_data"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "type": "={{ $json.type }}",
+            "from_field": "={{ $json.from_field }}",
+            "language": "={{ $json.language }}",
+            "content": "={{ $json.content }}"
+          },
+          "matchingColumns": [
+            "id"
+          ],
+          "schema": [
+            {
+              "id": "id",
+              "displayName": "id",
+              "required": false,
+              "defaultMatch": true,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "content",
+              "displayName": "content",
+              "required": true,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "language",
+              "displayName": "language",
+              "required": true,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "from_field",
+              "displayName": "from_field",
+              "required": true,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "type",
+              "displayName": "type",
+              "required": true,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "created_at",
+              "displayName": "created_at",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "dateTime",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "updated_at",
+              "displayName": "updated_at",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "dateTime",
+              "canBeUsedToMatch": true,
+              "removed": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.5,
+      "position": [
+        -260,
+        -60
+      ],
+      "id": "195dacb5-f66d-4118-a555-7bd6c5aea28f",
+      "name": "Save Raw Data",
+      "credentials": {
+        "postgres": {
+          "id": "A0A4BOyzVPohE0mW",
+          "name": "DB | Centralized Smart Reporting System"
+        }
+      },
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Loop over input items and add a new field called 'myNewField' to the JSON of each one\nlet data = [];\n\nfor (const item of $input.all()) {\n  const from = item.json.message.from.username ?? item.json.message.from.id;\n  data.push({\n    \"content\": item.json.message.text,\n    \"language\": \"id\",\n    \"from_field\": from,\n    \"type\": \"Telegram\"\n  });\n}\n\nreturn data;"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -480,
+        -320
+      ],
+      "id": "ed006d93-4ed3-4425-a955-c2b4179da1fc",
+      "name": "Normalize Telegram"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://100.105.218.82:8000/process",
+        "sendHeaders": true,
+        "specifyHeaders": "json",
+        "jsonHeaders": "{\n  \"accept\": \"application/json\",\n  \"Content-Type\": \"application/json\"\n}",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ $json }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -40,
+        -220
+      ],
+      "id": "06e76e69-d610-4335-a5f9-766177d3c271",
+      "name": "Service Extraction",
+      "alwaysOutputData": true,
+      "retryOnFail": true,
+      "maxTries": 5,
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "content": "## Save Results Data\n**Double click** to edit me. [Guide](https://docs.n8n.io/workflows/sticky-notes/)",
+        "height": 840,
+        "color": 4
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        360,
+        -480
+      ],
+      "typeVersion": 1,
+      "id": "90b7d72e-675c-42b3-8bfa-129c1666ec25",
+      "name": "Sticky Note5"
+    },
+    {
+      "parameters": {
+        "content": "## Save Log Data\n**Double click** to edit me. [Guide](https://docs.n8n.io/workflows/sticky-notes/)",
+        "height": 360,
+        "width": 920,
+        "color": 7
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -100,
+        380
+      ],
+      "typeVersion": 1,
+      "id": "71e07d19-5840-4deb-8d20-48fd2c24b9fa",
+      "name": "Sticky Note6"
+    },
+    {
+      "parameters": {
+        "content": "## Alert if Service Error\n**Double click** to edit me. [Guide](https://docs.n8n.io/workflows/sticky-notes/)",
+        "height": 840,
+        "width": 180,
+        "color": 3
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        160,
+        -480
+      ],
+      "typeVersion": 1,
+      "id": "9376a690-46a8-4bc3-ba5c-77d085e04c7b",
+      "name": "Sticky Note7"
+    },
+    {
+      "parameters": {
+        "content": "Sistem ini bekerja dengan Data mentah yang disebutkan sebelumnya kemudian diproses oleh \"AI Extractor\" untuk melakukan ekstraksi informasi seperti tren, topik, sentimen, dan emosi. Hasil ekstraksi ini disimpan di dalam database. Selanjutnya, \"AI Classification\" akan mengklasifikasikan data yang telah diekstrak. Data yang sudah terklasifikasi ini kemudian digunakan untuk Forward Reporting, di mana laporan diteruskan kepada unit kerja (Uker) dan unit layanan terkait. Akhirnya, semua data yang diproses disajikan di dalam Dashboard, yang menampilkan analisis tren, sentimen, emosi, analisis topik laporan, dan statistik pelaporan secara komprehensif. Dengan demikian, sistem ini memungkinkan pemantauan dan pelaporan yang cerdas dan terpusat dari berbagai saluran komunikasi. [Guide](https://docs.n8n.io/workflows/sticky-notes/)",
+        "height": 200,
+        "width": 660,
+        "color": 6
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -780,
+        540
+      ],
+      "typeVersion": 1,
+      "id": "df91097f-26cc-421f-8af0-e9ee3573334c",
+      "name": "Sticky Note8"
+    },
+    {
+      "parameters": {
+        "content": "## Centralized Smart Reporting System\nCentralized Smart Reporting System adalah sebuah sistem yang mengintegrasikan berbagai sumber data komunikasi (Email, Telegram, Whatsapp, SMS, Review, Sosmed Massage, dll) ke dalam satu platform terpusat, agar semua laporan terpusat dan dapat lansung ditujukan ke unit/layanan terkait sesuai dengan konten pelaporan berdasarkan bantuan AI.",
+        "height": 140,
+        "width": 660,
+        "color": 6
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -780,
+        380
+      ],
+      "typeVersion": 1,
+      "id": "882f6a3f-d57c-46a4-ac39-4938dd91b7f0",
+      "name": "Sticky Note9"
+    },
+    {
+      "parameters": {
+        "schema": {
+          "__rl": true,
+          "value": "public",
+          "mode": "list",
+          "cachedResultName": "public"
+        },
+        "table": {
+          "__rl": true,
+          "value": "log_data",
+          "mode": "list",
+          "cachedResultName": "log_data"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "action": "={{ $json.prev_node }}",
+            "status": "={{ $json.status_node }}"
+          },
+          "matchingColumns": [
+            "id"
+          ],
+          "schema": [
+            {
+              "id": "id",
+              "displayName": "id",
+              "required": false,
+              "defaultMatch": true,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "action",
+              "displayName": "action",
+              "required": true,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "status",
+              "displayName": "status",
+              "required": true,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "created_at",
+              "displayName": "created_at",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "dateTime",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "updated_at",
+              "displayName": "updated_at",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "dateTime",
+              "canBeUsedToMatch": true,
+              "removed": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.5,
+      "position": [
+        600,
+        560
+      ],
+      "id": "1e0e170d-b970-4b25-8269-f3a9a2dbdca8",
+      "name": "Save Log Data",
+      "credentials": {
+        "postgres": {
+          "id": "A0A4BOyzVPohE0mW",
+          "name": "DB | Centralized Smart Reporting System"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// Loop over input items and add a new field called 'myNewField' to the JSON of each one\nfor (const item of $input.all()) {\n  item.json.prev_node = $prevNode.name;\n  item.json.status_node = \"SUCCESS\";\n}\n\nreturn $input.all();"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        240,
+        560
+      ],
+      "id": "88d0b80b-ef73-411d-a8df-c67e13130f78",
+      "name": "Append Success"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Loop over input items and add a new field called 'myNewField' to the JSON of each one\nfor (const item of $input.all()) {\n  item.json.prev_node = $prevNode.name;\n  item.json.status_node = \"FAILED\";\n}\n\nreturn $input.all();"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        420,
+        420
+      ],
+      "id": "df0b8418-5b0a-4bc7-abea-ddd7121830b8",
+      "name": "Append Failed"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Loop over input items and add a new field called 'myNewField' to the JSON of each one\nfor (const item of $input.all()) {\n  item.json.content = $('Normalize Telegram').first().json.content;\n  item.json.language = $('Normalize Telegram').first().json.language;\n  item.json.from_field = $('Normalize Telegram').first().json.from_field;\n  item.json.type = $('Normalize Telegram').first().json.type;\n}\n\nreturn $input.all();"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        400,
+        -320
+      ],
+      "id": "52a79eeb-938e-492c-9ab0-a02b9a364778",
+      "name": "Combine"
+    },
+    {
+      "parameters": {
+        "schema": {
+          "__rl": true,
+          "value": "public",
+          "mode": "list",
+          "cachedResultName": "public"
+        },
+        "table": {
+          "__rl": true,
+          "value": "extraction_data",
+          "mode": "list",
+          "cachedResultName": "extraction_data"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "sentiment_score": "={{ $json.extraction.sentiment_score }}",
+            "recommended_unit_confidence": "={{ $json.classification.recommended_unit.confidence }}",
+            "processing_time": "={{ $json.processing_time }}",
+            "content": "={{ $json.content }}",
+            "language": "={{ $json.language }}",
+            "from_field": "={{ $json.from_field }}",
+            "type": "={{ $json.type }}",
+            "topic": "={{ $json.extraction.topic }}",
+            "sentiment": "={{ $json.extraction.sentiment }}",
+            "emotions": "={{ $json.extraction.emotions }}",
+            "entities": "={{ $json.extraction.entities }}",
+            "locations": "={{ $json.extraction.locations }}",
+            "hashtags": "={{ $json.extraction.hashtags }}",
+            "summary": "={{ $json.extraction.summary }}",
+            "recommended_unit_name": "={{ $json.classification.recommended_unit.name }}",
+            "recommended_unit_email": "={{ $json.classification.recommended_unit.email }}",
+            "recommended_unit_desc": "={{ $json.classification.recommended_unit.description }}",
+            "recommended_unit_match_key": "={{ $json.classification.recommended_unit.matched_keywords }}",
+            "alternative_units": "={{ $json.classification.alternative_units }}",
+            "classification_reason": "={{ $json.classification.classification_reason }}"
+          },
+          "matchingColumns": [
+            "id"
+          ],
+          "schema": [
+            {
+              "id": "id",
+              "displayName": "id",
+              "required": false,
+              "defaultMatch": true,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "content",
+              "displayName": "content",
+              "required": true,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "language",
+              "displayName": "language",
+              "required": true,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "from_field",
+              "displayName": "from_field",
+              "required": true,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "type",
+              "displayName": "type",
+              "required": true,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "topic",
+              "displayName": "topic",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "array",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "sentiment",
+              "displayName": "sentiment",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "sentiment_score",
+              "displayName": "sentiment_score",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "emotions",
+              "displayName": "emotions",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "array",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "entities",
+              "displayName": "entities",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "array",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "locations",
+              "displayName": "locations",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "array",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "hashtags",
+              "displayName": "hashtags",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "array",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "summary",
+              "displayName": "summary",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "recommended_unit_name",
+              "displayName": "recommended_unit_name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "recommended_unit_email",
+              "displayName": "recommended_unit_email",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "recommended_unit_desc",
+              "displayName": "recommended_unit_desc",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "recommended_unit_confidence",
+              "displayName": "recommended_unit_confidence",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "recommended_unit_match_key",
+              "displayName": "recommended_unit_match_key",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "array",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "alternative_units",
+              "displayName": "alternative_units",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "array",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "classification_reason",
+              "displayName": "classification_reason",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "processing_time",
+              "displayName": "processing_time",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "created_at",
+              "displayName": "created_at",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "dateTime",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "updated_at",
+              "displayName": "updated_at",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "dateTime",
+              "canBeUsedToMatch": true,
+              "removed": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.5,
+      "position": [
+        440,
+        -60
+      ],
+      "id": "58924999-8355-444d-a4f5-9eaef7fb1227",
+      "name": "Save Final Data",
+      "credentials": {
+        "postgres": {
+          "id": "A0A4BOyzVPohE0mW",
+          "name": "DB | Centralized Smart Reporting System"
+        }
+      },
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "content": "## Forward Email\n**Double click** to edit me. [Guide](https://docs.n8n.io/workflows/sticky-notes/)",
+        "height": 840,
+        "width": 200,
+        "color": 2
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        620,
+        -480
+      ],
+      "typeVersion": 1,
+      "id": "581537e0-ee25-4202-ba93-b74c92de3885",
+      "name": "Sticky Note10"
+    },
+    {
+      "parameters": {
+        "fromEmail": "forward.csrs@mangkubumi.site",
+        "toEmail": "redihermawan012@gmail.com",
+        "subject": "=Report for {{ $('Combine').item.json.classification.recommended_unit.name }} | Centralized Smart Reporting System ",
+        "html": "=<!DOCTYPE html>\n<html lang=\"id\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <title>Centralized Smart Reporting System</title>\n</head>\n<body style=\"margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f4f7f6;\">\n\n    <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"100%\">\n        <tr>\n            <td align=\"center\" style=\"padding: 40px 0 40px 0;\">\n                <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"600\" style=\"border-collapse: collapse; background-color: #ffffff; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08); border-radius: 8px;\">\n                    \n                    <tr>\n                        <td align=\"center\" style=\"padding: 20px 40px; background-color: #007bff; border-top-left-radius: 8px; border-top-right-radius: 8px;\">\n                            <h1 style=\"color: #ffffff; margin: 0; font-size: 24px;\">Centralized Smart Reporting System</h1>\n                        </td>\n                    </tr>\n\n                    <tr>\n                        <td style=\"padding: 30px 40px 20px 40px;\">\n                            <p style=\"margin: 0 0 20px 0; font-size: 16px; color: #333333;\">\n                                Halo tim <i?{{ $('Combine').item.json.classification.recommended_unit.name }}</i>,\n                            </p>\n\n                            <div style=\"background-color: #f9f9f9; padding: 15px; border-left: 5px solid #007bff; margin-bottom: 25px; border-radius: 4px;\">\n                                <p style=\"margin: 0 0 10px 0; font-size: 15px; color: #555555;\">\n                                    Laporan Diterima:\n                                </p>\n                                <ul style=\"list-style-type: none; padding: 0; margin: 0; font-size: 15px; color: #333333;\">\n                                    <li style=\"margin-bottom: 5px;\">Pelapor: <b>{{ $('Combine').item.json.from_field }}</b></li>\n                                    <li style=\"margin-bottom: 5px;\">Platform: <b>{{ $('Combine').item.json.type }}</b></li>\n                                    <li>Waktu Laporan: {{ $json.created_at }}</li>\n                                </ul>\n                            </div>\n\n                            <h3 style=\"color: #333333; margin: 0 0 15px 0; border-bottom: 1px solid #eeeeee; padding-bottom: 5px;\">\n                                Konten Aduan\n                            </h3>\n                            <blockquote style=\"margin: 0 0 25px 0; padding: 15px; background-color: #e9ecef; border-left: 4px solid #ffc107; font-style: italic; color: #495057;\">\n                                \"{{ $('Combine').item.json.content }}\"\n                            </blockquote>\n                            \n                            <h3 style=\"color: #333333; margin: 0 0 15px 0; border-bottom: 1px solid #eeeeee; padding-bottom: 5px;\">\n                                Analisis Sistem (CSRS)\n                            </h3>\n                            <table border=\"0\" cellpadding=\"8\" cellspacing=\"0\" width=\"100%\" style=\"font-size: 15px; color: #333333;\">\n                                <tr>\n                                    <td style=\"width: 30%; font-weight: bold; background-color: #f0f0f0; border-radius: 4px 0 0 4px;\">Topik Teridentifikasi</td>\n                                    <td style=\"background-color: #f0f0f0; border-radius: 0 4px 4px 0;\">\n                                        <i>{{ $json.topic }}</i>\n                                    </td>\n                                </tr>\n                                <tr>\n                                    <td style=\"width: 30%; font-weight: bold; background-color: #f9f9f9;\">Sentimen Linguistik</td>\n                                    <td style=\"background-color: #f9f9f9;\">\n                                        <b>{{ $json.sentiment }}</b> (Score: {{ $json.sentiment_score }})\n                                    </td>\n                                </tr>\n                                <tr>\n                                    <td style=\"width: 30%; font-weight: bold; background-color: #f0f0f0;\">Emosi Linguistik</td>\n                                    <td style=\"background-color: #f0f0f0;\">{{ $json.emotions }}</td>\n                                </tr>\n                                <tr>\n                                    <td style=\"width: 30%; font-weight: bold; background-color: #f9f9f9; color: #007bff;\">Unit Rekomendasi</td>\n                                    <td style=\"background-color: #f9f9f9; color: #007bff; font-weight: bold;\">\n                                        {{ $json.recommended_unit_name }}\n                                    </td>\n                                </tr>\n                            </table>\n\n                            <div style=\"margin-top: 25px; padding: 15px; border: 1px dashed #cccccc; border-radius: 4px; font-size: 12px; color: #666666;\">\n                                *Alasan Klasifikasi: {{ $json.classification_reason }}\n                            </div>\n                        </td>\n                    </tr>\n\n                    <tr>\n                        <td align=\"center\" style=\"padding: 25px 40px; background-color: #343a40; border-bottom-left-radius: 8px; border-bottom-right-radius: 8px;\">\n                            <p style=\"margin: 0; color: #cccccc; font-size: 14px;\">\n                                Report System with Centralized Smart Reporting System\n                            </p>\n                        </td>\n                    </tr>\n\n                </table>\n            </td>\n        </tr>\n    </table>\n\n</body>\n</html>",
+        "options": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2.1,
+      "position": [
+        640,
+        -180
+      ],
+      "id": "58f11132-4667-4631-be4e-0d4517ef540b",
+      "name": "Kirim Email Aduan",
+      "webhookId": "64ab4043-534b-45bf-8367-acc9b9326b5b",
+      "credentials": {
+        "smtp": {
+          "id": "qCxo5KDUhOjpEdsU",
+          "name": "SMTP Centralized Smart Reporting System"
+        }
+      },
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "chatId": "5932209724",
+        "text": "=Terdapat error pada Proses API SERVICE DATA. Coba cek workflow!\n\n-CSRS Alert\n{{ $now }}",
+        "additionalFields": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        200,
+        -60
+      ],
+      "id": "415f3d22-0598-4c44-b115-6937d2057e79",
+      "name": "Alert Service",
+      "webhookId": "85b51704-4dfc-4f55-bcc3-7dde653977c6",
+      "credentials": {
+        "telegramApi": {
+          "id": "liq0Yj1GjhgzMM4b",
+          "name": "Centralized Smart Reporting System BOT"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// Loop over input items and add a new field called 'myNewField' to the JSON of each one\nlet data = $input.first().json.body\n\nreturn data;"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -480,
+        -160
+      ],
+      "id": "ec73d3c2-056f-4a8c-9252-ffd9bd596e16",
+      "name": "Normalize Form"
+    },
+    {
+      "parameters": {
+        "postProcessAction": "nothing",
+        "format": "raw",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.emailReadImap",
+      "typeVersion": 2,
+      "position": [
+        -700,
+        20
+      ],
+      "id": "21610b72-8356-40a4-8177-d56d5babd5be",
+      "name": "Aduan Email",
+      "credentials": {
+        "imap": {
+          "id": "gFUbuoVaKy9DP03V",
+          "name": "IMAP Centralized Smart Reporting System"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "ADUAN TELEGRAM": {
+      "main": [
+        [
+          {
+            "node": "Normalize Telegram",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Normalize Telegram": {
+      "main": [
+        [
+          {
+            "node": "Save Raw Data",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Service Extraction",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Save Raw Data": {
+      "main": [
+        [
+          {
+            "node": "Append Success",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Append Failed",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Service Extraction": {
+      "main": [
+        [
+          {
+            "node": "Combine",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Append Success",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Alert Service",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Append Failed",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Save Log Data": {
+      "main": [
+        []
+      ]
+    },
+    "Append Success": {
+      "main": [
+        [
+          {
+            "node": "Save Log Data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Append Failed": {
+      "main": [
+        [
+          {
+            "node": "Save Log Data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Combine": {
+      "main": [
+        [
+          {
+            "node": "Save Final Data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Save Final Data": {
+      "main": [
+        [
+          {
+            "node": "Kirim Email Aduan",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Append Success",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Append Failed",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Kirim Email Aduan": {
+      "main": [
+        [
+          {
+            "node": "Append Success",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Append Failed",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "FORM WEBHOOK": {
+      "main": [
+        [
+          {
+            "node": "Normalize Form",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Normalize Form": {
+      "main": [
+        [
+          {
+            "node": "Service Extraction",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Save Raw Data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  }
+}
+

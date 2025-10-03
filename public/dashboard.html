@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard - Smart Reporting</title>
+  <link rel="stylesheet" href="/css/styles.css" />
+  
+</head>
+<body>
+  <header class="topbar">
+    <div class="container row between center">
+      <h1 class="small">Dashboard</h1>
+      <nav>
+        <a href="/">Landing</a>
+      </nav>
+    </div>
+  </header>
+  <main class="container">
+    <section class="panel">
+      <h3>Analytics</h3>
+      <iframe id="metabaseFrame" src="" frameborder="0" width="100%" height="800" allowtransparency></iframe>
+    </section>
+  </main>
+  <script>
+  (async function(){
+    try{
+      const res = await fetch('/api/embed-url');
+      const data = await res.json();
+      if(data.url){ document.getElementById('metabaseFrame').src = data.url; }
+      else{ document.getElementById('metabaseFrame').outerHTML = '<div class="panel">Gagal memuat embed URL</div>'; }
+    }catch(e){
+      document.getElementById('metabaseFrame').outerHTML = '<div class="panel">Gagal memuat embed URL</div>';
+    }
+  })();
+  </script>
+</body>
+</html>
+
+

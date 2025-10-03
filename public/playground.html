@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Playground</title>
+  <link rel="stylesheet" href="/css/styles.css" />
+  <style>
+    .form { background:#fff;border:1px solid var(--border);border-radius:12px;padding:16px }
+    .field { margin-bottom:12px }
+    .label { display:block;font-weight:600;margin-bottom:6px }
+    .input, .textarea { width:100%;padding:10px;border:1px solid var(--border);border-radius:8px;font:inherit }
+    .row-inline { display:flex;align-items:center;gap:10px }
+    .note { color:var(--muted);font-size:12px }
+    .scroll-x { overflow-x:auto }
+  </style>
+  <script>
+    async function submitReport(e){
+      e.preventDefault();
+      const name = document.getElementById('name').value;
+      const anonymous = document.getElementById('anonymous').checked;
+      const reportText = document.getElementById('reportText').value;
+      const btn = document.getElementById('submitBtn');
+      const out = document.getElementById('output');
+      out.textContent = '';
+      btn.disabled = true; btn.textContent = 'Mengirim...';
+      try{
+        const resp = await fetch('/api/playground/submit', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ name, anonymous, reportText })
+        });
+        const data = await resp.json();
+        if(!resp.ok){ throw new Error(data?.error || 'Gagal mengirim'); }
+        out.textContent = 'Berhasil terkirim. Status: ' + (data?.status || 'ok');
+        document.getElementById('reportForm').reset();
+      }catch(err){
+        out.textContent = 'Error: ' + err.message;
+      }finally{
+        btn.disabled = false; btn.textContent = 'Kirim Laporan';
+      }
+    }
+
+    async function loadUnits(){
+      const tableWrap = document.getElementById('unitsWrap');
+      const tbody = document.getElementById('unitsBody');
+      const head = document.getElementById('unitsHead');
+      try{
+        const res = await fetch('/api/units');
+        const data = await res.json();
+        if(!res.ok) throw new Error(data?.error || 'Gagal memuat data unit');
+        const items = Array.isArray(data?.items) ? data.items : [];
+        if(items.length === 0){ tableWrap.innerHTML = '<div class="note">Belum ada data unit_kerj.</div>'; return; }
+        const cols = Object.keys(items[0]);
+        head.innerHTML = '<tr>' + cols.map(c=>`<th>${c}</th>`).join('') + '</tr>';
+        tbody.innerHTML = items.map(row=>'<tr>' + cols.map(c=>`<td>${row[c] ?? ''}</td>`).join('') + '</tr>').join('');
+      }catch(err){
+        tableWrap.innerHTML = '<div class="note">'+err.message+'</div>';
+      }
+    }
+    async function loadEmail(){
+      const body = document.getElementById('emailBody');
+      try{
+        const res = await fetch('/api/email/activity');
+        const data = await res.json();
+        if(!res.ok) throw new Error(data?.error || 'Gagal memuat aktivitas email');
+        const items = data?.items || [];
+        body.innerHTML = items.map(e => `
+          <tr>
+            <td>${new Date(e.date).toLocaleString()}</td>
+            <td>${e.event || ''}</td>
+            <td>${(e.subject||'').replace(/</g,'&lt;')}</td>
+            <td>${e.from || ''}</td>
+            <td>${e.to || ''}</td>
+            <td>${(e.smtp_response||'').replace(/</g,'&lt;')}</td>
+          </tr>
+        `).join('');
+      }catch(err){
+        body.innerHTML = `<tr><td colspan="6" class="note">${err.message}</td></tr>`;
+      }
+    }
+    document.addEventListener('DOMContentLoaded', () => { loadUnits(); loadEmail(); });
+  </script>
+  </head>
+<body>
+  <header class="topbar">
+    <div class="container row between center">
+      <h1 class="small">Playground</h1>
+      <nav>
+        <a href="/">Landing</a>
+        <span> · </span>
+        <a href="/dashboard">Dashboard</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="panel">
+      <h3>Aktivitas Email Terbaru (SMTP2GO)</h3>
+      <div id="emailWrap" class="scroll-x">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Tanggal</th>
+              <th>Event</th>
+              <th>Subject</th>
+              <th>From</th>
+              <th>To</th>
+              <th>SMTP Response</th>
+            </tr>
+          </thead>
+          <tbody id="emailBody"></tbody>
+        </table>
+        <div class="note" style="margin-top:8px">Semua email akan di forward ke redihermawan012@gmail.com, sebagai dummy dari forward email tujuan unit/layanan</div>
+      </div>
+    </section>
+    <section class="panel">
+      <h3>Form Laporan</h3>
+      <form id="reportForm" class="form" onsubmit="submitReport(event)">
+        <div class="field">
+          <label for="name" class="label">Nama/Identitas</label>
+          <input id="name" type="text" class="input" placeholder="Nama Anda" />
+          <div class="row-inline">
+            <input id="anonymous" type="checkbox" />
+            <label for="anonymous">Kirim sebagai Anonymous</label>
+          </div>
+          <div class="note">Jika dicentang, nama akan diisi sebagai "anonymous".</div>
+        </div>
+        <div class="field">
+          <label for="reportText" class="label">Isi Laporan</label>
+          <textarea id="reportText" class="textarea" rows="6" placeholder="Tuliskan laporan Anda..." required></textarea>
+        </div>
+        <button id="submitBtn" class="btn" type="submit">Kirim Laporan</button>
+      </form>
+      <div id="output" style="margin-top:12px"></div>
+    </section>
+    <section class="panel" style="margin-top:16px">
+      <h3>Pelaporan via Email</h3>
+      <p>Anda dapat mengirimkan laporan melalui email ke alamat berikut:</p>
+      <p><a class="btn" href="mailto:report.csrs@mangkubumi.site">report.csrs@mangkubumi.site</a></p>
+      <p class="note">Sertakan uraian masalah, bukti pendukung (jika ada), dan identitas atau tulis "anonymous".</p>
+    </section>
+    <section class="panel" style="margin-top:16px">
+      <h3>Pelaporan via Telegram</h3>
+      <p>Anda juga dapat melakukan pelaporan melalui Telegram dengan cara chat ke bot berikut:</p>
+      <p><a class="btn" href="https://t.me/csrs_id_bot" target="_blank" rel="noopener noreferrer">@csrs_id_bot</a></p>
+      <p class="note">Klik tombol di atas untuk membuka chat Telegram. Ikuti instruksi pada bot untuk mengirimkan laporan Anda.</p>
+    </section>
+    <section class="panel" style="margin-top:16px">
+      <h3>Sumber Lain (Coming Soon)</h3>
+      <p>Pelaporan juga akan terintegrasi dari sumber berikut:</p>
+      <ul>
+        <li>Data pemantauan komentar aplikasi di Play Store</li>
+        <li>Komentar dan ulasan dari Google Maps</li>
+      </ul>
+      <p class="note">Fitur ini masih dalam pengembangan dan akan tersedia segera.</p>
+    </section>
+    <section class="panel" style="margin-top:16px">
+      <h3>Unit Kerja/Layanan (Dari Database)</h3>
+      <div id="unitsWrap" class="scroll-x">
+        <table class="table">
+          <thead id="unitsHead"></thead>
+          <tbody id="unitsBody"></tbody>
+        </table>
+      </div>
+    </section>
+    
+  </main>
+</body>
+</html>
+
+

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Workflow Viewer</title>
+  <link rel="stylesheet" href="/css/styles.css" />
+  <script src="https://cdn.jsdelivr.net/npm/@webcomponents/webcomponentsjs@2.0.0/webcomponents-loader.js"></script>
+  <script src="https://www.unpkg.com/lit@2.0.0-rc.2/polyfill-support.js"></script>
+  <script type="module" src="https://cdn.jsdelivr.net/npm/@n8n_io/n8n-demo-component/n8n-demo.bundled.js"></script>
+  <style>
+    n8n-demo{display:block;width:100%;height:85vh}
+  </style>
+  <script type="module">
+    import { html, render } from 'https://cdn.jsdelivr.net/gh/lit/dist@2/core/lit-core.min.js';
+    async function loadWorkflow() {
+      const container = document.getElementById('wf');
+      try {
+        const res = await fetch('/data/workflow.json', { cache: 'no-store' });
+        if (!res.ok) throw new Error('Gagal memuat workflow.json');
+        const json = await res.json();
+        const workflowStr = JSON.stringify(json);
+        render(html`
+          <h2>Workflow - Centralized Smart Reporting System</h2>
+          <n8n-demo style="width:100%;height:85vh" .workflow=${workflowStr}></n8n-demo>
+        `, container);
+      } catch (err) {
+        render(html`<div class="panel">${err.message}</div>`, container);
+      }
+    }
+    window.addEventListener('DOMContentLoaded', loadWorkflow);
+  </script>
+</head>
+<body>
+  <header class="topbar">
+    <div class="container row between center">
+      <h1 class="small">Workflow</h1>
+      <nav>
+        <a href="/">Landing</a>
+        <span> · </span>
+        <a href="/dashboard">Dashboard</a>
+        <span> · </span>
+        <a href="/playground">Playground</a>
+      </nav>
+    </div>
+  </header>
+  <main class="container">
+    <section class="panel">
+      <div id="wf"></div>
+    </section>
+  </main>
+</body>
+</html>
+
+
