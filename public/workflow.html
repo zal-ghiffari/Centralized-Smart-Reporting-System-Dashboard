@@ -22,7 +22,7 @@
         const workflowStr = JSON.stringify(json);
         render(html`
           <h2>Workflow - Centralized Smart Reporting System</h2>
-          <n8n-demo style="width:100%;height:85vh" .workflow=${workflowStr}></n8n-demo>
+          <n8n-demo frame="true" style="width:100%;height:85vh" .workflow=${workflowStr}></n8n-demo>
         `, container);
       } catch (err) {
         render(html`<div class="panel">${err.message}</div>`, container);
