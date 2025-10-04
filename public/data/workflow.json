@@ -12,7 +12,7 @@
       "typeVersion": 2,
       "position": [
         -700,
-        -160
+        -140
       ],
       "id": "73ae61d6-162a-4d10-b637-17d079a052ef",
       "name": "FORM WEBHOOK",
@@ -52,7 +52,7 @@
       "typeVersion": 2,
       "position": [
         -700,
-        200
+        220
       ],
       "id": "e55f51ad-49f8-433e-8c03-5a523ce8e8ef",
       "name": "FILE",
@@ -61,11 +61,12 @@
     {
       "parameters": {
         "content": "## Reporting Source \n**Double click** to edit me. [Guide](https://docs.n8n.io/workflows/sticky-notes/)",
-        "height": 840
+        "height": 840,
+        "width": 360
       },
       "type": "n8n-nodes-base.stickyNote",
       "position": [
-        -780,
+        -900,
         -480
       ],
       "typeVersion": 1,
@@ -90,14 +91,14 @@
     {
       "parameters": {
         "content": "## Save Raw Data\n**Double click** to edit me. [Guide](https://docs.n8n.io/workflows/sticky-notes/)",
-        "height": 840,
+        "height": 460,
         "width": 180,
         "color": 4
       },
       "type": "n8n-nodes-base.stickyNote",
       "position": [
         -300,
-        -480
+        -100
       ],
       "typeVersion": 1,
       "id": "a7011c40-c48e-4bee-bbd8-d85b3360cf91",
@@ -220,7 +221,7 @@
       "typeVersion": 2.5,
       "position": [
         -260,
-        -60
+        40
       ],
       "id": "195dacb5-f66d-4118-a555-7bd6c5aea28f",
       "name": "Save Raw Data",
@@ -234,21 +235,8 @@
     },
     {
       "parameters": {
-        "jsCode": "// Loop over input items and add a new field called 'myNewField' to the JSON of each one\nlet data = [];\n\nfor (const item of $input.all()) {\n  const from = item.json.message.from.username ?? item.json.message.from.id;\n  data.push({\n    \"content\": item.json.message.text,\n    \"language\": \"id\",\n    \"from_field\": from,\n    \"type\": \"Telegram\"\n  });\n}\n\nreturn data;"
-      },
-      "type": "n8n-nodes-base.code",
-      "typeVersion": 2,
-      "position": [
-        -480,
-        -320
-      ],
-      "id": "ed006d93-4ed3-4425-a955-c2b4179da1fc",
-      "name": "Normalize Telegram"
-    },
-    {
-      "parameters": {
         "method": "POST",
-        "url": "http://100.105.218.82:8000/process",
+        "url": "http://103.67.244.224:8000/process",
         "sendHeaders": true,
         "specifyHeaders": "json",
         "jsonHeaders": "{\n  \"accept\": \"application/json\",\n  \"Content-Type\": \"application/json\"\n}",
@@ -288,7 +276,7 @@
     {
       "parameters": {
         "content": "## Save Log Data\n**Double click** to edit me. [Guide](https://docs.n8n.io/workflows/sticky-notes/)",
-        "height": 360,
+        "height": 340,
         "width": 920,
         "color": 7
       },
@@ -320,13 +308,13 @@
     {
       "parameters": {
         "content": "Sistem ini bekerja dengan Data mentah yang disebutkan sebelumnya kemudian diproses oleh \"AI Extractor\" untuk melakukan ekstraksi informasi seperti tren, topik, sentimen, dan emosi. Hasil ekstraksi ini disimpan di dalam database. Selanjutnya, \"AI Classification\" akan mengklasifikasikan data yang telah diekstrak. Data yang sudah terklasifikasi ini kemudian digunakan untuk Forward Reporting, di mana laporan diteruskan kepada unit kerja (Uker) dan unit layanan terkait. Akhirnya, semua data yang diproses disajikan di dalam Dashboard, yang menampilkan analisis tren, sentimen, emosi, analisis topik laporan, dan statistik pelaporan secara komprehensif. Dengan demikian, sistem ini memungkinkan pemantauan dan pelaporan yang cerdas dan terpusat dari berbagai saluran komunikasi. [Guide](https://docs.n8n.io/workflows/sticky-notes/)",
-        "height": 200,
-        "width": 660,
+        "height": 180,
+        "width": 780,
         "color": 6
       },
       "type": "n8n-nodes-base.stickyNote",
       "position": [
-        -780,
+        -900,
         540
       ],
       "typeVersion": 1,
@@ -337,12 +325,12 @@
       "parameters": {
         "content": "## Centralized Smart Reporting System\nCentralized Smart Reporting System adalah sebuah sistem yang mengintegrasikan berbagai sumber data komunikasi (Email, Telegram, Whatsapp, SMS, Review, Sosmed Massage, dll) ke dalam satu platform terpusat, agar semua laporan terpusat dan dapat lansung ditujukan ke unit/layanan terkait sesuai dengan konten pelaporan berdasarkan bantuan AI.",
         "height": 140,
-        "width": 660,
+        "width": 780,
         "color": 6
       },
       "type": "n8n-nodes-base.stickyNote",
       "position": [
-        -780,
+        -900,
         380
       ],
       "typeVersion": 1,
@@ -431,7 +419,7 @@
       "typeVersion": 2.5,
       "position": [
         600,
-        560
+        540
       ],
       "id": "1e0e170d-b970-4b25-8269-f3a9a2dbdca8",
       "name": "Save Log Data",
@@ -450,7 +438,7 @@
       "typeVersion": 2,
       "position": [
         240,
-        560
+        540
       ],
       "id": "88d0b80b-ef73-411d-a8df-c67e13130f78",
       "name": "Append Success"
@@ -470,7 +458,7 @@
     },
     {
       "parameters": {
-        "jsCode": "// Loop over input items and add a new field called 'myNewField' to the JSON of each one\nfor (const item of $input.all()) {\n  item.json.content = $('Normalize Telegram').first().json.content;\n  item.json.language = $('Normalize Telegram').first().json.language;\n  item.json.from_field = $('Normalize Telegram').first().json.from_field;\n  item.json.type = $('Normalize Telegram').first().json.type;\n}\n\nreturn $input.all();"
+        "jsCode": "// Loop over input items and add a new field called 'myNewField' to the JSON of each one\nfor (const item of $input.all()) {\n  item.json.content = $('Normalize Center').first().json.content;\n  item.json.language = $('Normalize Center').first().json.language;\n  item.json.from_field = $('Normalize Center').first().json.from_field;\n  item.json.type = $('Normalize Center').first().json.type;\n}\n\nreturn $input.all();"
       },
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
@@ -824,28 +812,14 @@
     },
     {
       "parameters": {
-        "jsCode": "// Loop over input items and add a new field called 'myNewField' to the JSON of each one\nlet data = $input.first().json.body\n\nreturn data;"
-      },
-      "type": "n8n-nodes-base.code",
-      "typeVersion": 2,
-      "position": [
-        -480,
-        -160
-      ],
-      "id": "ec73d3c2-056f-4a8c-9252-ffd9bd596e16",
-      "name": "Normalize Form"
-    },
-    {
-      "parameters": {
         "postProcessAction": "nothing",
-        "format": "raw",
         "options": {}
       },
       "type": "n8n-nodes-base.emailReadImap",
       "typeVersion": 2,
       "position": [
-        -700,
-        20
+        -860,
+        60
       ],
       "id": "21610b72-8356-40a4-8177-d56d5babd5be",
       "name": "Aduan Email",
@@ -855,6 +829,107 @@
           "name": "IMAP Centralized Smart Reporting System"
         }
       }
+    },
+    {
+      "parameters": {
+        "jsCode": "// Loop over input items and add a new field called 'myNewField' to the JSON of each one\nlet data = $input.first().json.body\n\nreturn data;"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -480,
+        -140
+      ],
+      "id": "ec73d3c2-056f-4a8c-9252-ffd9bd596e16",
+      "name": "Normalize Form"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Loop over input items and add a new field called 'myNewField' to the JSON of each one\nlet data = [];\n\nfor (const item of $input.all()) {\n  const from = item.json.message.from.username ?? item.json.message.from.id;\n  data.push({\n    \"content\": item.json.message.text,\n    \"language\": \"id\",\n    \"from_field\": from,\n    \"type\": \"Telegram\"\n  });\n}\n\nreturn data;"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -480,
+        -320
+      ],
+      "id": "ed006d93-4ed3-4425-a955-c2b4179da1fc",
+      "name": "Normalize Telegram"
+    },
+    {
+      "parameters": {
+        "content": "## Normalize Center\n**Double click** to edit me. [Guide](https://docs.n8n.io/workflows/sticky-notes/)",
+        "height": 360,
+        "width": 180
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -300,
+        -480
+      ],
+      "typeVersion": 1,
+      "id": "ce2a420d-e9c0-4d17-ab7e-12b922929e6d",
+      "name": "Sticky Note3"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Loop over input items and add a new field called 'myNewField' to the JSON of each one\nreturn $input.all();"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -260,
+        -300
+      ],
+      "id": "48ac59fb-c455-44d7-aa70-0cac33b81657",
+      "name": "Normalize Center"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Loop over input items and add a new field called 'myNewField' to the JSON of each one\n// Regex Text\nconst teksKompleks = $('Aduan Email').first().json.textPlain;\nconst teksDibersihkanPenuh = teksKompleks\n    .replace(/[\\n\\t]/g, ' ') // Ganti semua newline dan tab dengan spasi\n    .replace(/\\s\\s+/g, ' ')   // Ganti spasi ganda atau lebih dengan spasi tunggal\n    .trim();                  // Hapus spasi di awal dan akhir\n\n// Regex Email\nconst teks = $('Aduan Email').first().json.from;\nconst regexEmail = /<([a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,})>/;\nconst hasilMatch = teks.match(regexEmail);\nlet email = null;\nif (hasilMatch && hasilMatch.length > 1) {\n    email = hasilMatch[1]; \n}\n\nlet data = [];\ndata.push({\n  \"content\": teksDibersihkanPenuh,\n  \"language\": \"id\",\n  \"from_field\": email,\n  \"type\": \"Email\"\n});\n\nreturn data;"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -480,
+        20
+      ],
+      "id": "0c7a68c0-da26-4fec-ac6e-9296fd849e3b",
+      "name": "Normalize Telegram1"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "6feede52-1903-46a7-815b-268b596ab27b",
+              "leftValue": "={{ $json.textPlain }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "notEmpty",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -700,
+        60
+      ],
+      "id": "e1ddd903-96b5-4980-bddc-6c834bb0db57",
+      "name": "If"
     }
   ],
   "connections": {
@@ -863,22 +938,6 @@
         [
           {
             "node": "Normalize Telegram",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Normalize Telegram": {
-      "main": [
-        [
-          {
-            "node": "Save Raw Data",
-            "type": "main",
-            "index": 0
-          },
-          {
-            "node": "Service Extraction",
             "type": "main",
             "index": 0
           }
@@ -1025,7 +1084,61 @@
       "main": [
         [
           {
+            "node": "Save Raw Data",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Normalize Center",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Normalize Telegram": {
+      "main": [
+        [
+          {
+            "node": "Save Raw Data",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Normalize Center",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Normalize Center": {
+      "main": [
+        [
+          {
             "node": "Service Extraction",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Aduan Email": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Normalize Telegram1": {
+      "main": [
+        [
+          {
+            "node": "Normalize Center",
             "type": "main",
             "index": 0
           },
@@ -1035,6 +1148,18 @@
             "index": 0
           }
         ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "Normalize Telegram1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        []
       ]
     }
   }
